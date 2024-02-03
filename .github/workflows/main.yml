@@ -14,7 +14,7 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v2
         with:
-          go-version: "1.21"
+          go-version: "1.21.0"
 
       - name: Install Dependencies
         run: go mod tidy
@@ -24,11 +24,12 @@ jobs:
           if [ "${{ github.ref }}" = "refs/heads/main" ]; then
             echo "Running migrations for Production Database"
             # Command to apply migrations to prod_your_db.sqlite
-            
+            goose -dir db/migrations sqlite3 ./my_prod_db.db up
             # You might need a custom script or tool command here
           else
             echo "Running migrations for Development Database"
             # Command to apply migrations to your_database.db
+            goose -dir db/migrations sqlite3 ./your_database.db up
             # Example: migrate -path migrations -database sqlite://your_database.db up
           fi
 
@@ -38,8 +39,8 @@ jobs:
         run: |
           if [ "${{ github.ref }}" = "refs/heads/main" ]; then
             echo "Starting application with Production Database"
-            go run . -db=prod_your_db.db
+            # go run . -db=my_prod_db.db
           else
             echo "Starting application with Development Database"
-            go run . -db=your_database.db
+            # go run . -db=your_database.db
           fi
