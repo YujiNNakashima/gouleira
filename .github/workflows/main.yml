@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - dev
 
 jobs:
   build:
@@ -18,7 +19,7 @@ jobs:
 
       - name: Install goose CLI
         run: |
-          wget https://github.com/pressly/goose/releases/download/v2.7.0/goose-linux-amd64 -O goose
+          wget https://github.com/pressly/goose/releases/download/v3.18.0/goose_linux_x86_64 -O goose
           chmod +x goose
           sudo mv goose /usr/local/bin/
 
