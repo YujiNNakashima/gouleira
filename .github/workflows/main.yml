@@ -16,6 +16,12 @@ jobs:
         with:
           go-version: "1.21.0"
 
+      - name: Install goose CLI
+        run: |
+          wget https://github.com/pressly/goose/releases/download/v2.7.0/goose-linux-amd64 -O goose
+          chmod +x goose
+          sudo mv goose /usr/local/bin/
+
       - name: Install Dependencies
         run: go mod tidy
 
