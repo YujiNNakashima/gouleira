@@ -1,0 +1,40 @@
+name: Go Application CI/CD
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: "1.16"
+
+      - name: Install Dependencies
+        run: go mod tidy
+
+      - name: Run Migrations
+        run: |
+          if [ "${{ github.ref }}" = "refs/heads/main" ]; then
+            echo "Running migrations for Production Database"
+            # Command to apply migrations to prod_your_db.sqlite
+            # You might need a custom script or tool command here
+          else
+            echo "Running migrations for Development Database"
+            # Command to apply migrations to your_database.db
+            # Example: migrate -path migrations -database sqlite://your_database.db up
+          fi
+
+      # Add steps for testing your application here if you have tests
+
+      - name: Simulate Deployment
+        run: |
+          echo "Simulating deployment..."
+          # Here you would add commands to simulate or actually deploy your application
+          # Since you're learning, this might just echo a statement for now

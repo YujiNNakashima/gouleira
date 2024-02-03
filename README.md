@@ -1,3 +1,0 @@
-# gouleira
-# gouleira
-# gouleira
