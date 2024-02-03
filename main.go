@@ -2,6 +2,7 @@ package main
 
 import (
 	"database/sql"
+	"flag"
 	"fmt"
 	"html/template"
 	"log"
@@ -18,7 +19,13 @@ type Film struct {
 func main() {
 	fmt.Println("Starting the application...")
 
-	db, err := sql.Open("sqlite3", "your_database.db")
+	dbPath := flag.String("db", "your_database.db", "path to the database file")
+	flag.Parse()
+
+	fmt.Println("Starting the application...")
+
+	db, err := sql.Open("sqlite3", *dbPath)
+
 	if err != nil {
 		log.Fatal(err)
 	}

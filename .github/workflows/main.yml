@@ -24,6 +24,7 @@ jobs:
           if [ "${{ github.ref }}" = "refs/heads/main" ]; then
             echo "Running migrations for Production Database"
             # Command to apply migrations to prod_your_db.sqlite
+            
             # You might need a custom script or tool command here
           else
             echo "Running migrations for Development Database"
@@ -35,6 +36,10 @@ jobs:
 
       - name: Simulate Deployment
         run: |
-          echo "Simulating deployment..."
-          # Here you would add commands to simulate or actually deploy your application
-          # Since you're learning, this might just echo a statement for now
+          if [ "${{ github.ref }}" = "refs/heads/main" ]; then
+            echo "Starting application with Production Database"
+            go run . -db=prod_your_db.db
+          else
+            echo "Starting application with Development Database"
+            go run . -db=your_database.db
+          fi
