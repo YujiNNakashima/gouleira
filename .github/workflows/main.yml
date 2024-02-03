@@ -31,7 +31,7 @@ jobs:
           if [ "${{ github.ref }}" = "refs/heads/main" ]; then
             echo "Running migrations for Production Database"
             # Command to apply migrations to prod_your_db.sqlite
-            goose -dir db/migrations sqlite3 ./my_prod_db.db up
+            goose -dir db/migrations sqlite3 ./prod_db.db up
             # You might need a custom script or tool command here
           else
             echo "Running migrations for Development Database"
@@ -46,7 +46,7 @@ jobs:
         run: |
           if [ "${{ github.ref }}" = "refs/heads/main" ]; then
             echo "Starting application with Production Database"
-            # go run . -db=my_prod_db.db
+            # go run . -db=prod_db.db
           else
             echo "Starting application with Development Database"
             # go run . -db=your_database.db
